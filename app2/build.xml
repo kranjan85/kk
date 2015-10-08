@@ -1,0 +1,33 @@
+<project default = "run">
+<target name = "setup">
+<mkdir dir = "src"/>
+<mkdir dir = "classes"/> 
+<mkdir dir = "docs"/>
+<mkdir dir = "lib"/>
+</target>
+
+<target name = "cleanup">
+<delete dir = "classes"/>
+<mkdir dir = "classes"/>
+<delete dir = "docs"/>
+<mkdir dir = "docs"/>
+<delete dir = "lib"/>
+<mkdir dir = "lib"/>
+</target>
+
+<target name = "compile" depends = "cleanup">
+<javac srcdir = "src" destdir = "classes"/>
+</target>
+
+<target name = "jar" depends = "compile">
+<jar basedir = "classes" destfile = "lib/MANAGER.jar"/>
+</target>
+
+<target name = "docs" depends = "jar">
+<javadoc sourcepath = "src" packagenames = "com.lara.*" destdir = "docs"/>
+</target>
+
+<target name = "run" depends = "docs">
+<java classpath = "classes" classname = "com.lara.Manager"/>
+</target>
+</project>
